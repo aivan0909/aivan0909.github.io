@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Prompt King | 專業版助手</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 style="font-size: 1.2rem;">💡 我的範本庫</h2>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">包含咖啡、幼貓及儲存範本</p>
+      </div>
+
+      <div class="case-list" id="caseList"></div>
+
+      <div class="upload-section">
+        <div class="upload-box" id="dropZone">
+          <img id="imgPreview" class="upload-preview" src="">
+          <div id="uploadLabel">
+            <span style="font-size: 1.5rem;">📸</span><br>
+            <span style="font-size: 0.8rem;">上傳圖分析 Prompt</span>
+          </div>
+          <input type="file" id="fileInput" hidden accept="image/*">
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="prompts-container">
+        <section class="preview-card">
+          <div class="preview-header">
+            <span class="label-pill">English Prompt</span>
+            <span class="copy-status" id="copyStatusEn" style="font-size: 0.7rem; color: var(--primary);">點擊複製</span>
+          </div>
+          <div class="prompt-content" id="promptResultEn">Generating...</div>
+        </section>
+
+        <section class="preview-card translation">
+          <div class="preview-header">
+            <span class="label-pill">中文翻譯提示</span>
+            <span class="copy-status" id="copyStatusZh" style="font-size: 0.7rem; color: var(--accent);">點擊複製</span>
+          </div>
+          <div class="prompt-content" id="promptResultZh">翻譯準備中...</div>
+        </section>
+      </div>
+
+      <section class="editor-panel">
+        <!-- 1. 主體 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>1. 人物與動物 (Subject)</label>
+            <button class="lock-btn" data-lock="f_subject">🔓 鎖定</button>
+          </div>
+          <select id="f_subject">
+            <optgroup label="人物">
+              <option value="male">男性 (Male)</option>
+              <option value="female" selected>女性 (Female)</option>
+              <option value="child">小孩 (Child)</option>
+              <option value="elderly">老人 (Elderly)</option>
+              <option value="baby">嬰兒 (Baby)</option>
+            </optgroup>
+            <optgroup label="各式動物">
+              <option value="adorable fluffy White baby cat">白色幼貓 (Baby Cat)</option>
+              <option value="rat">鼠 (Rat)</option>
+              <option value="ox">牛 (Ox)</option>
+              <option value="tiger">虎 (Tiger)</option>
+              <option value="rabbit">兔 (Rabbit)</option>
+              <option value="dragon">龍 (Dragon)</option>
+              <option value="snake">蛇 (Snake)</option>
+              <option value="horse">馬 (Horse)</option>
+              <option value="goat">羊 (Goat)</option>
+              <option value="monkey">猴 (Monkey)</option>
+              <option value="rooster">雞 (Rooster)</option>
+              <option value="dog">狗 (Dog)</option>
+              <option value="pig">豬 (Pig)</option>
+              <option value="duck">鴨 (Duck)</option>
+              <option value="goose">鵝 (Goose)</option>
+              <option value="bird">鳥 (Bird)</option>
+              <option value="dinosaur">恐龍 (Dinosaur)</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- 2. 場景 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>2. 天氣環境 (Weather)</label>
+            <button class="lock-btn" data-lock="f_weather">🔓 鎖定</button>
+          </div>
+          <select id="f_weather">
+            <option value="warm sunlight" selected>陽光 (Sunny)</option>
+            <option value="heavy rain, rain streaks visible">雨天 (Rainy)</option>
+            <option value="peaceful snowy">雪地 (Snowy)</option>
+            <option value="overcast cloudy">陰天 (Cloudy)</option>
+            <option value="soft diffuse overcast lighting">柔和漫射光</option>
+            <option value="warm kitchen lighting">廚房暖光</option>
+          </select>
+        </div>
+
+        <!-- 3. 地點 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>3. 地點 (Location)</label>
+            <button class="lock-btn" data-lock="f_location">🔓 鎖定</button>
+          </div>
+          <select id="f_location">
+            <option value="Taiwan" selected>台灣 (Taiwan)</option>
+            <option value="China">大陸 (China)</option>
+            <option value="Japan">日本 (Japan)</option>
+            <option value="USA">美國 (USA)</option>
+            <option value="Europe">歐洲 (Europe)</option>
+            <option value="a home kitchen">居家廚房</option>
+            <option value="wet dark asphalt pavement">潮濕柏油路</option>
+          </select>
+        </div>
+
+        <!-- 4. 道具 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>4. 道具配件 (Props)</label>
+            <button class="lock-btn" data-lock="f_item">🔓 鎖定</button>
+          </div>
+          <select id="f_item">
+            <option value="none" selected>無 (None)</option>
+            <option value="holding a miniature clear umbrella">拿著雨傘</option>
+            <option value="wearing a raincoat and boots">穿著雨衣雨靴</option>
+            <option value="holding a coffee cup">杯子</option>
+            <option value="holding an old book">書本</option>
+            <option value="beside a futuristic electric car">電動車</option>
+            <option value="with a vintage bicycle">腳踏車</option>
+          </select>
+        </div>
+
+        <!-- 5. 視角 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>5. 視角運鏡 (View)</label>
+            <button class="lock-btn" data-lock="f_view">🔓 鎖定</button>
+          </div>
+          <select id="f_view">
+            <option value="close-up portrait" selected>特寫 (Close-up)</option>
+            <option value="macro photograph">微距 (Macro)</option>
+            <option value="POV camera angle">第一人稱 (POV)</option>
+            <option value="low angle eye-level shot">眼平低角度</option>
+            <option value="full-body shot">全身 (Full Body)</option>
+          </select>
+        </div>
+
+        <!-- 6. 風格 -->
+        <div class="input-group">
+          <div class="input-header">
+            <label>6. 畫質風格 (Style)</label>
+            <button class="lock-btn" data-lock="f_style">🔓 鎖定</button>
+          </div>
+          <select id="f_style">
+            <optgroup label="寫實與渲染">
+              <option value="hyper-realistic, photorealistic, Unreal Engine 5 render" selected>超寫實 (UE5)</option>
+              <option value="Cinematic movie style, high dynamic range">電影感風格</option>
+              <option value="Cyberpunk style, neon aesthetic">賽博龐克</option>
+              <option value="Vintage 1990s film photography">復古底片</option>
+            </optgroup>
+            <optgroup label="藝術風格">
+              <option value="Anime illustration style, clean lines">動漫風格</option>
+              <option value="Kawaii chibi style, pastel colors">可愛 Q 版</option>
+              <option value="Oil painting style, canvas texture">油畫風格</option>
+              <option value="Soft watercolor style, light strokes">柔和水彩</option>
+              <option value="Ukiyo-e traditional Japanese art">浮世繪</option>
+            </optgroup>
+            <optgroup label="設計風格">
+              <option value="Futuristic 3D C4D render">3D 渲染 (C4D)</option>
+              <option value="Minimalist line art">極簡線條</option>
+              <option value="Gothic dark mysterious style">哥德式</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="input-group" style="justify-content: flex-end; grid-column: 1/-1;">
+          <div class="btn-row">
+            <button class="action btn-secondary" id="randomBtn">🎲 隨機組合</button>
+            <button class="action btn-primary" id="generateBtn">✨ 更新產出</button>
+            <button class="action btn-accent" id="saveTemplateBtn">💾 存為範本</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 分析對話框 -->
+  <div class="modal" id="analysisModal">
+    <div class="modal-content">
+      <h3 style="margin-bottom: 1rem;">🔍 圖片 AI 分析</h3>
+      <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1rem;">辨識結果供您調整：</p>
+      <textarea id="analyzedPrompt" style="width: 100%; height: 120px; margin-bottom: 1rem;"></textarea>
+      <div class="btn-row">
+        <button class="action btn-secondary" onclick="closeModal()">取消</button>
+        <button class="action btn-primary" id="applyAnalysisBtn">套用並儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
